@@ -14,6 +14,7 @@ import { travelPackages } from './data';
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<string>('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const [privacySidebarOpen, setPrivacySidebarOpen] = useState(false);
   const [searchData, setSearchData] = useState<SearchData>({
     destination: '',
     checkin: '',
@@ -107,6 +108,8 @@ const App: React.FC = () => {
         headerBlur={headerBlur}
         mobileMenuOpen={mobileMenuOpen}
         setMobileMenuOpen={setMobileMenuOpen}
+        privacySidebarOpen={privacySidebarOpen}
+        setPrivacySidebarOpen={setPrivacySidebarOpen}
       />
       {renderPage()}
       <Footer setCurrentPage={setCurrentPage} />

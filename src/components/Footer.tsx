@@ -27,7 +27,7 @@ export const Footer: React.FC<{ setCurrentPage: (page: string) => void }> = ({ s
                 <div className="w-8 h-8 bg-white rounded-sm flex items-center justify-center">
                   <Plane className="h-4 w-4 text-black" />
                 </div>
-                <span className="text-xl font-light tracking-wide">VOYAGER</span>
+                <span className="text-xl  uppercase font-light tracking-wide">Elysium</span>
               </div>
               <p className="text-gray-400 leading-relaxed max-w-md">
                 Criando experiências de viagem extraordinárias há mais de 15 anos.
@@ -44,7 +44,7 @@ export const Footer: React.FC<{ setCurrentPage: (page: string) => void }> = ({ s
             >
               <h3 className="text-lg font-medium mb-4">Links Rápidos</h3>
               <ul className="space-y-2">
-                {['Home', 'Destinos', 'Sobre', 'Contato'].map((link) => (
+                {['Inicio', 'Destinos', 'Sobre', 'Contato'].map((link) => (
                   <li key={link}>
                     <motion.button
                       onClick={() => setCurrentPage(link.toLowerCase())}
@@ -73,11 +73,11 @@ export const Footer: React.FC<{ setCurrentPage: (page: string) => void }> = ({ s
                 </p>
                 <p className="flex items-center">
                   <Mail className="h-4 w-4 mr-2" />
-                  contato@voyager.com.br
+                  elysium@voyager.com.br
                 </p>
                 <p className="flex items-center">
                   <Globe className="h-4 w-4 mr-2" />
-                  www.voyager.com.br
+                  www.elysium.com.br
                 </p>
               </div>
             </motion.div>
@@ -92,7 +92,7 @@ export const Footer: React.FC<{ setCurrentPage: (page: string) => void }> = ({ s
             transition={{ delay: 0.4 }}
           >
             <p className="text-sm text-gray-400 mb-4 md:mb-0">
-              © {currentYear} Voyager. Todos os direitos reservados.
+              © {currentYear} Elysium. Todos os direitos reservados.
             </p>
             <div className="flex space-x-6 text-sm text-gray-400">
               <motion.a href="#" className="hover:text-white transition-colors" whileHover={{ y: -2 }}>
