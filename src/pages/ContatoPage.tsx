@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin } from 'lucide-react';
 
-export const ContatoPage: React.FC = () => {
+export const ContatoPage: React.FC<{ showToast: (message: string) => void }> = ({ showToast }) => {
     const [formData, setFormData] = useState({
       name: '',
       email: '',
@@ -14,12 +14,14 @@ export const ContatoPage: React.FC = () => {
       e.preventDefault();
       // Handle form submission
       console.log('Form submitted:', formData);
+      showToast('Mensagem enviada com sucesso!');
+      setFormData({ name: '', email: '', phone: '', message: '' });
     };
 
     return (
       <div className="pt-16">
         <motion.section
-          className="py-16 bg-gray-50"
+          className="py-16 bg-zinc-50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6 }}

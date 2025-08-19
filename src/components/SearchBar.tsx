@@ -5,11 +5,23 @@ import type{ SearchData } from '../data';
 
 export const SearchBar: React.FC<{ 
     searchData: SearchData, 
-    setSearchData: (data: SearchData) => void 
-}> = ({ searchData, setSearchData }) => {
+    setSearchData: (data: SearchData) => void,
+    setCurrentPage?: (page: string) => void
+}> = ({ searchData, setSearchData, setCurrentPage }) => {
+    const today = new Date().toISOString().split('T')[0];
+
+    const handleCheckinChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newCheckin = e.target.value;
+      const newSearchData = { ...searchData, checkin: newCheckin };
+      if (searchData.checkout && newCheckin > searchData.checkout) {
+        newSearchData.checkout = '';
+      }
+      setSearchData(newSearchData);
+    };
+
     return (
       <motion.div
-        className="bg-white rounded-lg shadow-lg border border-gray-100 p-6 max-w-6xl mx-auto"
+        className="bg-white rounded-lg shadow-lg border border-gray-100 p-6 max-w-6xl mx-auto z-50"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.3 }}
@@ -38,7 +50,8 @@ export const SearchBar: React.FC<{
               <input
                 type="date"
                 value={searchData.checkin}
-                onChange={(e) => setSearchData({...searchData, checkin: e.target.value})}
+                min={today}
+                onChange={handleCheckinChange}
                 className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-md focus:ring-1 focus:ring-black focus:border-black transition-all duration-200 text-sm"
               />
             </div>
@@ -52,8 +65,10 @@ export const SearchBar: React.FC<{
               <input
                 type="date"
                 value={searchData.checkout}
+                min={searchData.checkin || today}
                 onChange={(e) => setSearchData({...searchData, checkout: e.target.value})}
-                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-md focus:ring-1 focus:ring-black focus:border-black transition-all duration-200 text-sm"
+                disabled={!searchData.checkin}
+                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-md focus:ring-1 focus:ring-black focus:border-black transition-all duration-200 text-sm disabled:bg-gray-100"
               />
             </div>
           </motion.div>
@@ -78,6 +93,7 @@ export const SearchBar: React.FC<{
           {/* Search Button */}
           <motion.div className="flex items-end">
             <motion.button
+              onClick={() => setCurrentPage && setCurrentPage('destinos')}
               className="w-full bg-black text-white py-3 px-6 rounded-md hover:bg-gray-800 transition-colors duration-200 flex items-center justify-center space-x-2 text-sm font-medium"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}

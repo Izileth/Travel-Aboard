@@ -1,4 +1,4 @@
-import React, { useState, useMemo, type JSX } from 'react';
+import React, { useState, useMemo, type JSX, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { Phone } from 'lucide-react';
 import { Header } from './components/Header';
@@ -8,13 +8,24 @@ import { HomePage } from './pages/HomePage';
 import { DestinosPage } from './pages/DestinosPage';
 import { SobrePage } from './pages/SobrePage';
 import { ContatoPage } from './pages/ContatoPage';
+import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import type { TravelPackage, SearchData, FilterOptions } from './data';
 import { travelPackages } from './data';
+import { LoadingScreen } from './components/LoadingScreen';
+import { Toast } from './components/Toast';
 
 const App: React.FC = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<string>('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [privacySidebarOpen, setPrivacySidebarOpen] = useState(false);
+  const [toast, setToast] = useState<{ message: string; show: boolean }>({ message: '', show: false });
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 2500); // Simulate loading
+    return () => clearTimeout(timer);
+  }, []);
+
   const [searchData, setSearchData] = useState<SearchData>({
     destination: '',
     checkin: '',
@@ -38,6 +49,13 @@ const App: React.FC = () => {
   const { scrollY } = useScroll();
   const headerOpacity = useTransform(scrollY, [0, 100], [1, 0.95]);
   const headerBlur = useTransform(scrollY, [0, 100], [0, 10]);
+
+  const showToast = (message: string) => {
+    setToast({ message, show: true });
+    setTimeout(() => {
+      setToast({ message: '', show: false });
+    }, 4000);
+  };
 
   const filteredPackages = useMemo(() => {
     return travelPackages.filter(pkg => {
@@ -84,7 +102,9 @@ const App: React.FC = () => {
               case 'sobre':
                 return <SobrePage />;
               case 'contato':
-                return <ContatoPage />;
+                return <ContatoPage showToast={showToast} />;
+              case 'privacy':
+                return <PrivacyPolicyPage setCurrentPage={setCurrentPage} />;
               default:
                 return <HomePage 
                     setCurrentPage={setCurrentPage} 
@@ -99,8 +119,17 @@ const App: React.FC = () => {
     );
   };
 
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
   return (
     <div className="min-h-screen bg-white">
+      <Toast 
+        message={toast.message} 
+        show={toast.show} 
+        onClose={() => setToast({ ...toast, show: false })} 
+      />
       <Header
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
@@ -112,7 +141,7 @@ const App: React.FC = () => {
         setPrivacySidebarOpen={setPrivacySidebarOpen}
       />
       {renderPage()}
-      <Footer setCurrentPage={setCurrentPage} />
+      <Footer setCurrentPage={setCurrentPage} setPrivacySidebarOpen={setPrivacySidebarOpen} />
 
       {/* Enhanced Package Modal */}
       <AnimatePresence>
@@ -120,6 +149,7 @@ const App: React.FC = () => {
           <PackageModal
             package={selectedPackage}
             onClose={() => setSelectedPackage(null)}
+            showToast={showToast}
           />
         )}
       </AnimatePresence>

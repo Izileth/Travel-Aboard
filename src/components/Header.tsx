@@ -2,6 +2,8 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Plane, Shield } from 'lucide-react';
 
+
+
 export const Header: React.FC<{ 
     currentPage: string, 
     setCurrentPage: (page: string) => void, 
@@ -13,6 +15,8 @@ export const Header: React.FC<{
     setPrivacySidebarOpen: (open: boolean) => void
 }> = ({ currentPage, setCurrentPage, headerOpacity, headerBlur, mobileMenuOpen, setMobileMenuOpen, privacySidebarOpen, setPrivacySidebarOpen }) => {
     const ref = React.useRef(null);
+
+    
 
     return (
       <>
@@ -31,6 +35,7 @@ export const Header: React.FC<{
                 className="flex items-center space-x-2"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
+                onClick={() => {setCurrentPage('home')}}
               >
                 <div className="w-8 h-8 bg-black rounded-sm flex items-center justify-center">
                   <Plane className="h-4 w-4 text-white" />
@@ -134,7 +139,7 @@ export const Header: React.FC<{
                 transition={{ type: 'spring', stiffness: 300, damping: 30 }}
               >
                 <div className="h-16 flex items-center px-4 border-b border-gray-100">
-                  <div className="flex items-center space-x-2">
+                  <div onClick={() => {setCurrentPage('home')}} className="flex items-center space-x-2">
                     <div className="w-8 h-8 bg-black rounded-sm flex items-center justify-center">
                       <Plane className="h-4 w-4 text-white" />
                     </div>
@@ -219,9 +224,9 @@ export const Header: React.FC<{
                   </div>
                   
                   <div className="pt-4 border-t border-gray-200">
-                    <a href="#" className="text-blue-600 hover:underline text-sm">
+                    <button onClick={() => { setCurrentPage('privacy'); setPrivacySidebarOpen(false); }} className="text-blue-600 hover:underline text-sm">
                       Ler política de privacidade completa
-                    </a>
+                    </button>
                   </div>
                 </div>
               </motion.div>

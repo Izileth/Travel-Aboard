@@ -33,7 +33,7 @@ export const HomePage: React.FC<{
         {/* Hero Section */}
         <motion.section
           ref={ref}
-          className="relative h-screen flex items-center justify-center overflow-hidden"
+          className="relative h-screen flex items-center justify-center overflow-hidden z-10"
           style={{ y }}
         >
           <div className="absolute inset-0 z-0">
@@ -103,7 +103,7 @@ export const HomePage: React.FC<{
 
           {/* Scroll Indicator */}
           <motion.div
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5 }}
@@ -117,8 +117,8 @@ export const HomePage: React.FC<{
         </motion.section>
 
         {/* Search Section */}
-        <motion.section className="py-16 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.section className="py-16 bg-gray-50 mt-96">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
             <motion.div
               className="text-center mb-12"
               initial={{ opacity: 0, y: 50 }}
@@ -131,7 +131,7 @@ export const HomePage: React.FC<{
                 Use nossa busca inteligente para encontrar o destino perfeito para você
               </p>
             </motion.div>
-            <SearchBar searchData={searchData} setSearchData={setSearchData} />
+            <SearchBar searchData={searchData} setSearchData={setSearchData} setCurrentPage={setCurrentPage} />
           </div>
         </motion.section>
 

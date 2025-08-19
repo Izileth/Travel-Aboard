@@ -6,7 +6,7 @@ export const SobrePage: React.FC = () => {
     return (
       <div className="pt-16">
         <motion.section
-          className="py-16 bg-gray-50"
+          className="py-16 bg-zinc-50"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
@@ -59,7 +59,7 @@ export const SobrePage: React.FC = () => {
                 transition={{ duration: 0.6 }}
               >
                 <img
-                  src="/placeholder.svg?height=400&width=600"
+                  src="https://i.pinimg.com/736x/fd/11/4f/fd114f67a744ae202ad4ee47135d396d.jpg"
                   alt="Nossa equipe"
                   className="w-full rounded-lg shadow-lg"
                 />
@@ -68,7 +68,7 @@ export const SobrePage: React.FC = () => {
           </div>
         </section>
 
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 bg-zinc-50">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.h2
               className="text-3xl font-light text-center mb-12 tracking-wide"

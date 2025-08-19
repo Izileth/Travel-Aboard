@@ -2,7 +2,10 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Phone, Mail, Globe, Plane } from 'lucide-react';
 
-export const Footer: React.FC<{ setCurrentPage: (page: string) => void }> = ({ setCurrentPage }) => {
+export const Footer: React.FC<{ 
+    setCurrentPage: (page: string) => void,
+    setPrivacySidebarOpen: (open: boolean) => void 
+}> = ({ setCurrentPage, setPrivacySidebarOpen }) => {
     const currentYear = new Date().getFullYear();
 
     return (
@@ -95,9 +98,9 @@ export const Footer: React.FC<{ setCurrentPage: (page: string) => void }> = ({ s
               © {currentYear} Elysium. Todos os direitos reservados.
             </p>
             <div className="flex space-x-6 text-sm text-gray-400">
-              <motion.a href="#" className="hover:text-white transition-colors" whileHover={{ y: -2 }}>
+              <motion.button onClick={() => setPrivacySidebarOpen(true)} className="bg-transparent border-none p-0 text-gray-400 hover:text-white transition-colors" whileHover={{ y: -2 }}>
                 Política de Privacidade
-              </motion.a>
+              </motion.button>
               <motion.a href="#" className="hover:text-white transition-colors" whileHover={{ y: -2 }}>
                 Termos de Uso
               </motion.a>

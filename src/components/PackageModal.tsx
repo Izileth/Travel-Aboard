@@ -3,7 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, MapPin, Star } from 'lucide-react';
 import type { TravelPackage } from '../data';
 
-export const PackageModal: React.FC<{ package: TravelPackage; onClose: () => void }> = ({ package: pkg, onClose }) => {
+export const PackageModal: React.FC<{ 
+  package: TravelPackage; 
+  onClose: () => void;
+  showToast: (message: string) => void;
+}> = ({ package: pkg, onClose, showToast }) => {
     return (
       <AnimatePresence>
         <motion.div
@@ -151,6 +155,10 @@ export const PackageModal: React.FC<{ package: TravelPackage; onClose: () => voi
                       </div>
 
                       <motion.button
+                        onClick={() => {
+                          showToast('Reserva confirmada com sucesso!');
+                          onClose();
+                        }}
                         className="w-full bg-black text-white py-3 px-6 rounded-md hover:bg-gray-800 transition-colors font-medium"
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
